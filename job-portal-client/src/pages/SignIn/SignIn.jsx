@@ -14,7 +14,7 @@ const SignIn = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // console.log(location);
+  // const from = location.state?.from || "/"; // default fallback
 
   const handleSignIn = (e) => {
     e.preventDefault();
@@ -31,6 +31,7 @@ const SignIn = () => {
 
         // Redirect to the desired route
         navigate(location?.state ? location?.state : "/");
+        // navigate(from, { replace: true });
       })
       .catch((err) => {
         // console.log(error.message);

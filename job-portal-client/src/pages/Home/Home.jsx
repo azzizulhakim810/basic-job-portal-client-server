@@ -1,7 +1,13 @@
 import Banner from "./Banner";
+import HotJobs from "./HotJobs";
 
 const Home = () => {
-  return <Banner />;
+  return (
+    <>
+      <Banner />
+      <HotJobs />
+    </>
+  );
 };
 
 export default Home;
