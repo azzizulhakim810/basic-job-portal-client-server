@@ -1,5 +1,7 @@
-import { Link } from "react-router";
-const HotJobCards = ({ job }) => {
+import { useLoaderData, Link } from "react-router-dom";
+
+const JobDetails = () => {
+  const job = useLoaderData([]);
   const {
     _id,
     title,
@@ -15,10 +17,10 @@ const HotJobCards = ({ job }) => {
     company_logo,
     salaryRange,
   } = job;
-  // console.log(job);
+  console.log(job);
   return (
     <div>
-      <div className="relative flex flex-col text-gray-700 bg-white shadow-lg border-x-2 w-full rounded-sm bg-clip-border">
+      <div className="relative flex flex-col text-gray-700 bg-white shadow-lg border-x-2 w-6/12 rounded-sm bg-clip-border">
         <div className="p-4 flex justify-center">
           <img src={company_logo} className="  h-10 " />
         </div>
@@ -43,7 +45,7 @@ const HotJobCards = ({ job }) => {
           <p>
             Salary: {salaryRange.min}-{salaryRange.max}
           </p>
-          <Link to={`/jobs/${_id}`}>
+          <Link to={`/jobApply/${_id}`}>
             <button className="btn ">Apply</button>
           </Link>
         </div>
@@ -52,4 +54,4 @@ const HotJobCards = ({ job }) => {
   );
 };
 
-export default HotJobCards;
+export default JobDetails;
