@@ -42,14 +42,21 @@ async function run() {
       .db("jobPortal")
       .collection("job-applications");
 
-    // Get All Jobs
+    // Get All Jobs (Everyone)
     app.get("/jobs", async (req, res) => {
-      const cursor = jobsCollection.find();
+      // My Posted Jobs Part
+      const email = req.query.email;
+      let query = {};
+      if (email) {
+        query = { hr_email: email };
+      }
+
+      const cursor = jobsCollection.find(query);
       const result = await cursor.toArray();
       res.send(result);
     });
 
-    // Each Job Details
+    // Each Job Details (Everyone)
     app.get("/jobs/:id", async (req, res) => {
       const id = req.params.id;
       const query = { _id: new ObjectId(id) };
@@ -57,7 +64,7 @@ async function run() {
       res.send(result);
     });
 
-    // My applied job
+    // My applied job (User)
     app.get("/myjobs", async (req, res) => {
       const email = req.query.email;
       // console.log(email);
@@ -81,18 +88,49 @@ async function run() {
       res.send(result);
     });
 
-    // Extracting Job details from Jobs database on an applicant side(extract home info by foreign key)
-    app.get("/myjobs-details", async (req, res) => {});
-
-    // Apply to a Job
-    app.post("/job-applications", async (req, res) => {
-      const application = req.body;
-      // console.log(req.body);
-      const result = await jobApplicationCollection.insertOne(application);
+    // See all the applications applied to my posted job (Admin)
+    app.get("/viewApplicationsAdmin/:job_id", async (req, res) => {
+      const jobId = req.params.job_id;
+      // console.log(id);
+      const query = { job_id: jobId };
+      const result = await jobApplicationCollection.find(query).toArray();
       res.send(result);
     });
 
-    // Add a Job
+    // Apply to a Job (User)
+    app.post("/job-applications", async (req, res) => {
+      const application = req.body;
+      // console.log(application);
+      const result = await jobApplicationCollection.insertOne(application);
+
+      // Not the best way (use aggregate)
+      const id = application.job_id;
+      const query = { _id: new ObjectId(id) };
+      const findTheJob = await jobsCollection.findOne(query);
+      // console.log(findTheJob);
+      let newCount = 0;
+
+      if (findTheJob.applicationCount) {
+        newCount = findTheJob.applicationCount + 1;
+      } else {
+        newCount = 1;
+      }
+
+      // Now update the job info
+      const filter = { _id: new ObjectId(id) };
+
+      const upadatedDoc = {
+        $set: {
+          applicationCount: newCount,
+        },
+      };
+
+      const updatedResult = await jobsCollection.updateOne(filter, upadatedDoc);
+
+      res.send(result);
+    });
+
+    // Add a Job (Admin)
     app.post("/addJob", async (req, res) => {
       const newJob = req.body;
       // console.log(newJob);
@@ -100,12 +138,30 @@ async function run() {
       res.send(result);
     });
 
-    // Delete a applied job from My applications page
+    // Delete a applied job from My applications page (User)
     app.delete("/myjobs/:id", async (req, res) => {
       const application_id = req.params.id;
       // console.log(application_id);
       const query = { _id: new ObjectId(application_id) };
       const result = await jobApplicationCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    // Delete a applied job from view applications page (Admin)
+    app.delete("/deleteApplication/:application_id", async (req, res) => {
+      const applicationId = req.params.application_id;
+      // console.log(applicationId);
+      const query = { _id: new ObjectId(applicationId) };
+      const result = await jobApplicationCollection.deleteOne(query);
+      res.send(result);
+    });
+
+    // Delete a posted job from My posted job page (Admin)
+    app.delete("/myPostedJobs/:id", async (req, res) => {
+      const application_id = req.params.id;
+      // console.log(application_id);
+      const query = { _id: new ObjectId(application_id) };
+      const result = await jobsCollection.deleteOne(query);
       res.send(result);
     });
   } finally {

@@ -1,8 +1,10 @@
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const AddJob = () => {
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleAddJob = (e) => {
     e.preventDefault();
@@ -41,6 +43,7 @@ const AddJob = () => {
           });
 
           e.target.reset();
+          navigate("/myPostedJobs");
         }
       });
   };
@@ -150,7 +153,7 @@ const AddJob = () => {
             {/* Deadline */}
             <label className="input">
               <span className="label">Deadline</span>
-              <input name="date" type="date" />
+              <input name="applicationDeadline" type="date" />
             </label>
 
             {/* Description */}
@@ -202,7 +205,7 @@ const AddJob = () => {
             <label className="label">HR Email</label>
             <input
               defaultValue={user?.email}
-              name="hrEmail"
+              name="hr_email"
               type="email"
               className="input w-full"
               placeholder="HR Email"
@@ -212,7 +215,7 @@ const AddJob = () => {
             <label className="label">HR Name</label>
             <input
               defaultValue={user?.displayName}
-              name="hrName"
+              name="hr_name"
               type="text"
               className="input w-full"
               placeholder="HR Name"
@@ -221,7 +224,7 @@ const AddJob = () => {
             {/* Company Logo */}
             <label className="label">Company Logo</label>
             <input
-              name="companyLogo"
+              name="company_logo"
               type="url"
               className="input w-full"
               placeholder="Company Logo"
