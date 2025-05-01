@@ -10,11 +10,11 @@ const ViewApplicationsAdmin = () => {
 
   // const fetcher = useFetcher();
 
-  const { applicant_email, linkedIn, name, resume, job_id } =
+  const { _id, applicant_email, linkedIn, name, resume, job_id } =
     allApplications || {};
 
   const handleDelete = async (application_id) => {
-    console.log(application_id);
+    // console.log(application_id);
 
     fetch(`http://localhost:5000/deleteApplication/${application_id}`, {
       method: "DELETE",
@@ -32,8 +32,32 @@ const ViewApplicationsAdmin = () => {
       });
   };
 
-  const handleStatusUpdate = (e) => {
-    console.log(e.target.value);
+  const handleStatusUpdate = (e, id) => {
+    // console.log(e.target.value, id);
+
+    const data = {
+      status: e.target.value,
+    };
+
+    console.log(data);
+
+    fetch(`http://localhost:5000/job-application/${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount) {
+          Swal.fire({
+            title: "Great!",
+            text: "Status Updated!",
+            icon: "success",
+          });
+        }
+      });
   };
 
   return (
@@ -61,9 +85,9 @@ const ViewApplicationsAdmin = () => {
               <td>{application.resume}</td>
               <td>
                 <select
-                  onChange={handleStatusUpdate}
+                  onChange={(e) => handleStatusUpdate(e, application._id)}
                   defaultValue={application.status || ""}
-                  className="select select-md"
+                  className="select select-md cursor-pointer"
                 >
                   <option disabled={true}>Change Status</option>
                   <option>Under Review</option>

@@ -138,6 +138,30 @@ async function run() {
       res.send(result);
     });
 
+    // Update applicaiton status from admin all applications dashboard (Admin)
+    app.patch("/job-application/:id", async (req, res) => {
+      const applicant_id = req.params.id;
+      const data = req.body;
+      console.log(applicant_id, data);
+
+      const filter = { _id: new ObjectId(applicant_id) };
+
+      const options = { upsert: true };
+
+      const updatedDoc = {
+        $set: {
+          status: data.status,
+        },
+      };
+
+      const result = await jobApplicationCollection.updateOne(
+        filter,
+        updatedDoc,
+        options
+      );
+      res.send(result);
+    });
+
     // Delete a applied job from My applications page (User)
     app.delete("/myjobs/:id", async (req, res) => {
       const application_id = req.params.id;
