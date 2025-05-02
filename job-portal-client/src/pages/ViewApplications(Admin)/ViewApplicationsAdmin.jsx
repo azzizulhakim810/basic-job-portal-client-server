@@ -3,10 +3,8 @@ import Swal from "sweetalert2";
 
 const ViewApplicationsAdmin = () => {
   // const { job_id } = useParams();
-  // console.log(job_id);
 
   const allApplications = useLoaderData([]);
-  // console.log(allApplications);
 
   // const fetcher = useFetcher();
 
