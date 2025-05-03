@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const { ObjectId } = require("mongodb");
+var jwt = require("jsonwebtoken");
 
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
@@ -35,6 +36,20 @@ async function run() {
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
+
+    // Auth Related Api's
+    app.post("/jwt", async (req, res) => {
+      const user = req.body;
+      // console.log("user:", user);
+      const token = jwt.sign(
+        {
+          data: user,
+        },
+        "secret",
+        { expiresIn: "1h" }
+      );
+      console.log("token:", token);
+    });
 
     // Jobs Related Api's
     const jobsCollection = client.db("jobPortal").collection("jobs");

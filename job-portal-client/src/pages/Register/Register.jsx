@@ -19,11 +19,11 @@ const Register = () => {
     // Creating User
     createUser(email, password)
       .then((result) => {
-        // console.log(result.user);
+        console.log(result.user);
         form.reset();
       })
       .catch((err) => {
-        // console.log(error.message);
+        console.log(error.message);
         setError(err.message);
       });
   };

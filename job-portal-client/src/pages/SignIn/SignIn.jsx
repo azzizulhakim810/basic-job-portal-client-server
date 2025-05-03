@@ -6,6 +6,7 @@ import { signInWithPopup } from "firebase/auth";
 import SocialLogin from "../shared/SocialLogin";
 import { Navigate } from "react-router-dom";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignIn = () => {
   const { signInUser } = useContext(AuthContext);
@@ -22,7 +23,9 @@ const SignIn = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    // console.log(email, password);
+    const user = {
+      email,
+    };
 
     signInUser(email, password)
       .then((result) => {
@@ -32,6 +35,23 @@ const SignIn = () => {
         // Redirect to the desired route
         navigate(location?.state ? location?.state : "/");
         // navigate(from, { replace: true });
+
+        /* fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(user),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data)); */
+
+        // Convert the above fetch into a easier version with axios
+
+        axios
+          .post("http://localhost:5000/jwt", email)
+          .then((data) => console.log(data))
+          .catch((err) => console.log(err));
       })
       .catch((err) => {
         // console.log(error.message);
