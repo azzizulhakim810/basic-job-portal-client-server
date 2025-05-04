@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
 const { ObjectId } = require("mongodb");
-var jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
 const { MongoClient, ServerApiVersion } = require("mongodb");
 
@@ -13,8 +14,39 @@ const port = process.env.PORT || 5000;
 app.use(express.urlencoded({ extended: true }));
 
 // middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://localhost:5173"],
+    credentials: true,
+  })
+);
 app.use(express.json());
+app.use(cookieParser());
+
+const logger = (req, res, next) => {
+  console.log("From the logger");
+  next();
+};
+
+const verifyToken = (req, res, next) => {
+  console.log("Inside the Verify Token");
+  console.log(req.cookies);
+
+  const token = req?.cookies?.token;
+
+  if (!token) {
+    return res.status(401).send({ message: "Unauthorized Access" });
+  }
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({ message: "Unathorized Access" });
+    }
+
+    req.user = decoded;
+    next();
+  });
+};
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@atlascluster.sztfigr.mongodb.net/?retryWrites=true&w=majority&appName=AtlasCluster`;
 
@@ -40,15 +72,20 @@ async function run() {
     // Auth Related Api's
     app.post("/jwt", async (req, res) => {
       const user = req.body;
-      // console.log("user:", user);
-      const token = jwt.sign(
-        {
-          data: user,
-        },
-        "secret",
-        { expiresIn: "1h" }
-      );
-      console.log("token:", token);
+      console.log("Token Email: ", user);
+
+      // Generating JWT Token
+      const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
+        expiresIn: "1h",
+      });
+      console.log("Token Creation: ", token);
+
+      res
+        .cookie("token", token, {
+          httpOnly: true,
+          secure: false, // as we don't have https
+        })
+        .send({ success: true });
     });
 
     // Jobs Related Api's
@@ -58,9 +95,11 @@ async function run() {
       .collection("job-applications");
 
     // Get All Jobs (Everyone)
-    app.get("/jobs", async (req, res) => {
+    app.get("/jobs", logger, async (req, res) => {
+      console.log("Back in the Jobs");
       // My Posted Jobs Part
       const email = req.query.email;
+      // console.log("Cookies", req.cookies);
       let query = {};
       if (email) {
         query = { hr_email: email };
@@ -80,10 +119,19 @@ async function run() {
     });
 
     // My applied job (User)
-    app.get("/myjobs", async (req, res) => {
+    app.get("/myjobs", verifyToken, async (req, res) => {
       const email = req.query.email;
-      // console.log(email);
+      console.log("Back to the My Applied Jobs");
+
       const query = { applicant_email: email };
+      // console.log("Cookies", req.cookies);
+      console.log(req.user.email);
+
+      // Checking token email to client request email
+      if (req.user.email !== req.query.email) {
+        return res.status(403).send({ message: "Forbidden Access" });
+      }
+
       const result = await jobApplicationCollection.find(query).toArray();
 
       // Aggregation Pipeline(low efficiency)
@@ -149,6 +197,7 @@ async function run() {
     app.post("/addJob", async (req, res) => {
       const newJob = req.body;
       // console.log(newJob);
+
       const result = await jobsCollection.insertOne(newJob);
       res.send(result);
     });

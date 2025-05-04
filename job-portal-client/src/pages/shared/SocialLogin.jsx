@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SocialLogin = () => {
   const { signInUser, signInGoogle, signInFacebook, signInGithub } =
@@ -19,6 +20,14 @@ const SocialLogin = () => {
         // Redirect to the desired route
         navigate(location?.state ? location?.state : "/");
         // console.log(result.user);
+
+        // JWT Installation
+        axios
+          .post("http://localhost:5000/jwt", result.user, {
+            withCredentials: true,
+          })
+          .then((res) => console.log(res.data))
+          .catch((err) => console.log(err));
       })
       .catch((err) => {
         console.log(err.message);
@@ -33,6 +42,12 @@ const SocialLogin = () => {
         navigate(location?.state ? location?.state : "/");
         // console.log(result.user);
         // console.log(result);
+
+        // JWT Installation
+        axios
+          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .then((res) => console.log(res.data))
+          .catch((err) => console.log(err));
       })
       .catch((err) => {
         // console.log(error.message);
@@ -47,6 +62,12 @@ const SocialLogin = () => {
         navigate(location?.state ? location?.state : "/");
         // console.log(result.user);
         // console.log(result);
+
+        // JWT Installation
+        axios
+          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .then((res) => console.log(res.data))
+          .catch((err) => console.log(err));
       })
       .catch((err) => {
         // console.log(error.message);

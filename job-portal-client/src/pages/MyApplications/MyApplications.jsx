@@ -9,7 +9,7 @@ const MyApplications = () => {
   const [allApplication, setAllApplication] = useState([]);
 
   const handleDelete = (_id) => {
-    fetch(`http://localhost:5000/myjobs/${_id}`, {
+    /* fetch(`http://localhost:5000/myjobs/${_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -22,7 +22,20 @@ const MyApplications = () => {
             icon: "success",
           });
         }
-      });
+      }); */
+
+    axios.delete(`http://localhost:5000/myjobs/${_id}`).then((res) => {
+      console.log(res.data);
+
+      if (res.data.deletedCount) {
+        setAllApplication((prv) => prv.filter((app) => app._id !== _id));
+        Swal.fire({
+          title: "Done!",
+          text: "Deleted successfully!",
+          icon: "success",
+        });
+      }
+    });
   };
 
   useEffect(() => {
@@ -35,7 +48,7 @@ const MyApplications = () => {
         withCredentials: true,
       })
       .then((res) => setAllApplication(res.data));
-  }, [user?.email, handleDelete]);
+  }, [user?.email]);
   return (
     <div>
       <h1 className="text-2xl font-bold text-center pb-5">MyApplications</h1>

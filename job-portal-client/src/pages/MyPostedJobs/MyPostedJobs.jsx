@@ -11,7 +11,7 @@ const MyPostedJobs = () => {
   // console.log(myPostedJobs);
 
   const handleDelete = (_id) => {
-    fetch(`http://localhost:5000/myPostedJobs/${_id}`, {
+    /* fetch(`http://localhost:5000/myPostedJobs/${_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -24,7 +24,19 @@ const MyPostedJobs = () => {
             icon: "success",
           });
         }
-      });
+      }); */
+
+    axios.delete(`http://localhost:5000/myPostedJobs/${_id}`).then((res) => {
+      // console.log(res.data);
+      if (res.data.deletedCount) {
+        setMyPostedJobs((prev) => prev.filter((job) => job._id !== _id));
+        Swal.fire({
+          title: "Done!",
+          text: "Deleted successfully!",
+          icon: "success",
+        });
+      }
+    });
   };
 
   useEffect(() => {
@@ -38,7 +50,7 @@ const MyPostedJobs = () => {
         withCredentials: true,
       })
       .then((res) => setMyPostedJobs(res.data));
-  }, [user?.email, handleDelete]);
+  }, [user?.email]);
 
   return (
     <div>

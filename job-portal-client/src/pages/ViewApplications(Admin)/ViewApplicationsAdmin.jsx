@@ -7,6 +7,7 @@ const ViewApplicationsAdmin = () => {
   const allApplications = useLoaderData([]);
 
   // const fetcher = useFetcher();
+  console.log(allApplications);
 
   const { _id, applicant_email, linkedIn, name, resume, job_id } =
     allApplications || {};
