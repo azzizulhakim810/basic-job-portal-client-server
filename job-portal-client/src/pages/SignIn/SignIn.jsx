@@ -23,13 +23,12 @@ const SignIn = () => {
     const email = form.email.value;
     const password = form.password.value;
 
-    const user = {
-      email,
-    };
-
     signInUser(email, password)
       .then((result) => {
-        // console.log(result.user);
+        const user = {
+          email: result.user.email,
+        };
+        // console.log(user);
         form.reset();
 
         // Redirect to the desired route
@@ -49,8 +48,8 @@ const SignIn = () => {
         // Convert the above fetch into a easier version with axios
 
         axios
-          .post("http://localhost:5000/jwt", email)
-          .then((data) => console.log(data))
+          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .then((res) => console.log(res.data))
           .catch((err) => console.log(err));
       })
       .catch((err) => {

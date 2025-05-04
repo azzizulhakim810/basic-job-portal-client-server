@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const MyPostedJobs = () => {
   const { user } = useAuth();
@@ -27,9 +28,16 @@ const MyPostedJobs = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:5000/jobs?email=${user?.email}`)
+    /* fetch(`http://localhost:5000/jobs?email=${user?.email}`)
       .then((res) => res.json())
-      .then((data) => setMyPostedJobs(data));
+      .then((data) => setMyPostedJobs(data)); */
+
+    // Convert it to axios
+    axios
+      .get(`http://localhost:5000/jobs?email=${user?.email}`, {
+        withCredentials: true,
+      })
+      .then((res) => setMyPostedJobs(res.data));
   }, [user?.email, handleDelete]);
 
   return (

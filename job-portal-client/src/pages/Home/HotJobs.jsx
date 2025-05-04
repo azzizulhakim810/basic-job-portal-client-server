@@ -1,16 +1,25 @@
 import { useEffect, useState } from "react";
 import HotJobCards from "./HotJobCards";
+import axios from "axios";
 
 const HotJobs = () => {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/jobs")
+    /* fetch("http://localhost:5000/jobs", {
+      withCredentials: true,
+    })
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
         setJobs(data);
-      });
+      }); */
+
+    axios
+      .get("http://localhost:5000/jobs", {
+        withCredentials: true,
+      })
+      .then((res) => setJobs(res.data));
   }, []);
   return (
     <div className="text-center py-10">
