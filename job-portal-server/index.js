@@ -28,6 +28,7 @@ const logger = (req, res, next) => {
   next();
 };
 
+// Verify the token
 const verifyToken = (req, res, next) => {
   console.log("Inside the Verify Token");
   console.log(req.cookies);
