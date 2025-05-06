@@ -3,10 +3,13 @@ import useAuth from "../../hooks/useAuth";
 import MyApplicationDetails from "../myApplicationDetails/myApplicationDetails";
 import Swal from "sweetalert2";
 import axios from "axios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const MyApplications = () => {
   const { user } = useAuth();
   const [allApplication, setAllApplication] = useState([]);
+
+  const axiosSecure = useAxiosSecure();
 
   const handleDelete = (_id) => {
     /* fetch(`http://localhost:5000/myjobs/${_id}`, {
@@ -43,12 +46,21 @@ const MyApplications = () => {
       .then((res) => res.json())
       .then((data) => setAllApplication(data)); */
 
-    axios
+    ///////////// Convert it to axios
+
+    /* axios
       .get(`http://localhost:5000/myjobs?email=${user?.email}`, {
         withCredentials: true,
       })
+      .then((res) => setAllApplication(res.data)); */
+
+    /////////// Use Axios Instance
+
+    axiosSecure
+      .get(`/myjobs?email=${user?.email}`)
       .then((res) => setAllApplication(res.data));
   }, [user?.email]);
+
   return (
     <div>
       <h1 className="text-2xl font-bold text-center pb-5">MyApplications</h1>

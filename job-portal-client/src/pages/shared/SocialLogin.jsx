@@ -22,12 +22,12 @@ const SocialLogin = () => {
         // console.log(result.user);
 
         // JWT Installation
-        axios
+        /*  axios
           .post("http://localhost:5000/jwt", result.user, {
             withCredentials: true,
           })
           .then((res) => console.log(res.data))
-          .catch((err) => console.log(err));
+          .catch((err) => console.log(err)); */
       })
       .catch((err) => {
         console.log(err.message);
@@ -44,10 +44,10 @@ const SocialLogin = () => {
         // console.log(result);
 
         // JWT Installation
-        axios
+        /*  axios
           .post("http://localhost:5000/jwt", user, { withCredentials: true })
           .then((res) => console.log(res.data))
-          .catch((err) => console.log(err));
+          .catch((err) => console.log(err)); */
       })
       .catch((err) => {
         // console.log(error.message);
@@ -64,10 +64,10 @@ const SocialLogin = () => {
         // console.log(result);
 
         // JWT Installation
-        axios
+        /*   axios
           .post("http://localhost:5000/jwt", user, { withCredentials: true })
           .then((res) => console.log(res.data))
-          .catch((err) => console.log(err));
+          .catch((err) => console.log(err)); */
       })
       .catch((err) => {
         // console.log(error.message);

@@ -11,6 +11,7 @@ import {
   FacebookAuthProvider,
   GithubAuthProvider,
 } from "firebase/auth";
+import axios from "axios";
 
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
@@ -60,8 +61,34 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      // console.log("State captured", currentUser);
-      setLoading(false);
+      console.log("State captured", currentUser?.email);
+
+      if (currentUser?.email) {
+        const user = { email: currentUser.email };
+
+        // JWT Installation
+        axios
+          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .then((res) => {
+            console.log("login", res.data);
+
+            setLoading(false);
+          })
+          .catch((err) => console.log(err));
+      } else {
+        axios
+          .post(
+            "http://localhost:5000/logout",
+            {},
+            {
+              withCredentials: true,
+            }
+          )
+          .then((res) => {
+            console.log("log Out", res.data);
+            setLoading(false);
+          });
+      }
     });
 
     return () => {

@@ -24,10 +24,10 @@ const Register = () => {
         form.reset();
 
         // JWT Installation
-        axios
+        /*  axios
           .post("http://localhost:5000/jwt", user, { withCredentials: true })
           .then((res) => console.log(res.data))
-          .catch((err) => console.log(err));
+          .catch((err) => console.log(err)); */
       })
       .catch((err) => {
         console.log(error.message);

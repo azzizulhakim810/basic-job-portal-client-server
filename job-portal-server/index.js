@@ -76,7 +76,7 @@ async function run() {
 
       // Generating JWT Token
       const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: "1h",
+        expiresIn: "5h",
       });
       console.log("Token Creation: ", token);
 
@@ -84,6 +84,15 @@ async function run() {
         .cookie("token", token, {
           httpOnly: true,
           secure: false, // as we don't have https
+        })
+        .send({ success: true });
+    });
+
+    app.post("/logout", (req, res) => {
+      res
+        .clearCookie("token", {
+          httpOnly: true,
+          secure: false,
         })
         .send({ success: true });
     });
