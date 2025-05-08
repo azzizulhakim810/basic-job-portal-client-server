@@ -16,7 +16,11 @@ app.use(express.urlencoded({ extended: true }));
 // middleware
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: [
+      "http://localhost:5173",
+      "https://auth-router-context2-ff8cf.web.app",
+      "https://auth-router-context2-ff8cf.firebaseapp.com",
+    ],
     credentials: true,
   })
 );
@@ -63,12 +67,12 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
-    await client.connect();
+    // await client.connect();
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+    /* await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
-    );
+    ); */
 
     // Auth Related Api's
     app.post("/jwt", async (req, res) => {
