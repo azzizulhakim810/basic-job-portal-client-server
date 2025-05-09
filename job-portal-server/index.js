@@ -16,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 // middleware
 app.use(
   cors({
+    // Whitelisting links for exchanging data
     origin: [
       "http://localhost:5173",
       "https://auth-router-context2-ff8cf.web.app",
@@ -28,7 +29,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const logger = (req, res, next) => {
-  console.log("From the logger");
+  console.log("From the logger middleware");
   next();
 };
 
