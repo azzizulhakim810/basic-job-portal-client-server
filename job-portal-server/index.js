@@ -68,6 +68,9 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
+
+    /////// Comment out the connect & ping before deployment
+
     // await client.connect();
     // Send a ping to confirm a successful connection
     /* await client.db("admin").command({ ping: 1 });
@@ -279,5 +282,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server in running ${port}`);
+  console.log(`Server in running at ${port}`);
 });
