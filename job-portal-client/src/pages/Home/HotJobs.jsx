@@ -1,12 +1,12 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import HotJobCards from "./HotJobCards";
-import axios from "axios";
 
 const HotJobs = () => {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    /* fetch("http://localhost:5000/jobs", {
+    /* fetch("https://job-portal-server-ten-puce.vercel.app/jobs", {
       withCredentials: true,
     })
       .then((res) => res.json())
@@ -16,7 +16,7 @@ const HotJobs = () => {
       }); */
 
     axios
-      .get("http://localhost:5000/jobs", {
+      .get("https://job-portal-server-ten-puce.vercel.app/jobs", {
         withCredentials: true,
       })
       .then((res) => setJobs(res.data));

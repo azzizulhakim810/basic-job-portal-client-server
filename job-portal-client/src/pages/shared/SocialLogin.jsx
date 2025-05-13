@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import AuthContext from "../../context/AuthContext/AuthContext";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const SocialLogin = () => {
   const { signInUser, signInGoogle, signInFacebook, signInGithub } =
@@ -23,7 +22,7 @@ const SocialLogin = () => {
 
         // JWT Installation
         /*  axios
-          .post("http://localhost:5000/jwt", result.user, {
+          .post("https://job-portal-server-ten-puce.vercel.app/jwt", result.user, {
             withCredentials: true,
           })
           .then((res) => console.log(res.data))
@@ -45,7 +44,7 @@ const SocialLogin = () => {
 
         // JWT Installation
         /*  axios
-          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .post("https://job-portal-server-ten-puce.vercel.app/jwt", user, { withCredentials: true })
           .then((res) => console.log(res.data))
           .catch((err) => console.log(err)); */
       })
@@ -65,7 +64,7 @@ const SocialLogin = () => {
 
         // JWT Installation
         /*   axios
-          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .post("https://job-portal-server-ten-puce.vercel.app/jwt", user, { withCredentials: true })
           .then((res) => console.log(res.data))
           .catch((err) => console.log(err)); */
       })

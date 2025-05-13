@@ -1,10 +1,9 @@
-import useAuth from "./useAuth";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useEffect } from "react";
+import useAuth from "./useAuth";
 
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://job-portal-server-ten-puce.vercel.app",
   withCredentials: true,
 });
 
@@ -12,7 +11,7 @@ const useAxiosSecure = () => {
   const { signOutUser } = useAuth();
   // const navigate = useNavigate();
 
-  // Intercept & Logout the user if not authorized 
+  // Intercept & Logout the user if not authorized
   useEffect(() => {
     axiosInstance.interceptors.response.use(
       (response) => {

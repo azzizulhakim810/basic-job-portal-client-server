@@ -1,17 +1,17 @@
-import auth from "../../firebase/firebase.init";
-import AuthContext from "./AuthContext";
-import { useState, useEffect } from "react";
+import axios from "axios";
 import {
   createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-  signInWithPopup,
-  GoogleAuthProvider,
   FacebookAuthProvider,
   GithubAuthProvider,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  signOut,
 } from "firebase/auth";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import auth from "../../firebase/firebase.init";
+import AuthContext from "./AuthContext";
 
 const googleProvider = new GoogleAuthProvider();
 const facebookProvider = new FacebookAuthProvider();
@@ -68,7 +68,9 @@ const AuthProvider = ({ children }) => {
 
         // JWT Installation
         axios
-          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .post("https://job-portal-server-ten-puce.vercel.app/jwt", user, {
+            withCredentials: true,
+          })
           .then((res) => {
             console.log("login", res.data);
 
@@ -78,7 +80,7 @@ const AuthProvider = ({ children }) => {
       } else {
         axios
           .post(
-            "http://localhost:5000/logout",
+            "https://job-portal-server-ten-puce.vercel.app/logout",
             {},
             {
               withCredentials: true,

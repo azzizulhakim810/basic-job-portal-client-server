@@ -1,10 +1,9 @@
 import Lottie from "lottie-react";
-import registerAnimation from "../../assets/register.json";
 import { useContext, useState } from "react";
-import AuthContext from "../../context/AuthContext/AuthContext";
 import { Link } from "react-router-dom";
+import registerAnimation from "../../assets/register.json";
+import AuthContext from "../../context/AuthContext/AuthContext";
 import SocialLogin from "../shared/SocialLogin";
-import axios from "axios";
 
 const Register = () => {
   const { createUser } = useContext(AuthContext);
@@ -25,7 +24,7 @@ const Register = () => {
 
         // JWT Installation
         /*  axios
-          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .post("https://job-portal-server-ten-puce.vercel.app/jwt", user, { withCredentials: true })
           .then((res) => console.log(res.data))
           .catch((err) => console.log(err)); */
       })

@@ -92,7 +92,8 @@ async function run() {
       res
         .cookie("token", token, {
           httpOnly: true,
-          secure: false, // as we don't have https
+          // secure: false, // as we don't have https
+          secure: process.env.NODE_ENV === "production", // as we don't have https
         })
         .send({ success: true });
     });
@@ -101,7 +102,9 @@ async function run() {
       res
         .clearCookie("token", {
           httpOnly: true,
-          secure: false,
+          // secure: false,
+
+          secure: process.env.NODE_ENV === "production",
         })
         .send({ success: true });
     });

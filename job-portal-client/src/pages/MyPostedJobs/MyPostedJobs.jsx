@@ -1,8 +1,8 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
-import { Link } from "react-router-dom";
-import axios from "axios";
 
 const MyPostedJobs = () => {
   const { user } = useAuth();
@@ -11,7 +11,7 @@ const MyPostedJobs = () => {
   // console.log(myPostedJobs);
 
   const handleDelete = (_id) => {
-    /* fetch(`http://localhost:5000/myPostedJobs/${_id}`, {
+    /* fetch(`https://job-portal-server-ten-puce.vercel.app/myPostedJobs/${_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -26,29 +26,36 @@ const MyPostedJobs = () => {
         }
       }); */
 
-    axios.delete(`http://localhost:5000/myPostedJobs/${_id}`).then((res) => {
-      // console.log(res.data);
-      if (res.data.deletedCount) {
-        setMyPostedJobs((prev) => prev.filter((job) => job._id !== _id));
-        Swal.fire({
-          title: "Done!",
-          text: "Deleted successfully!",
-          icon: "success",
-        });
-      }
-    });
+    axios
+      .delete(
+        `https://job-portal-server-ten-puce.vercel.app/myPostedJobs/${_id}`
+      )
+      .then((res) => {
+        // console.log(res.data);
+        if (res.data.deletedCount) {
+          setMyPostedJobs((prev) => prev.filter((job) => job._id !== _id));
+          Swal.fire({
+            title: "Done!",
+            text: "Deleted successfully!",
+            icon: "success",
+          });
+        }
+      });
   };
 
   useEffect(() => {
-    /* fetch(`http://localhost:5000/jobs?email=${user?.email}`)
+    /* fetch(`https://job-portal-server-ten-puce.vercel.app/jobs?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => setMyPostedJobs(data)); */
 
     // Convert it to axios
     axios
-      .get(`http://localhost:5000/jobs?email=${user?.email}`, {
-        withCredentials: true,
-      })
+      .get(
+        `https://job-portal-server-ten-puce.vercel.app/jobs?email=${user?.email}`,
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => setMyPostedJobs(res.data));
   }, [user?.email]);
 

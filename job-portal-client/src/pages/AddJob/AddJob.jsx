@@ -1,6 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
 
 const AddJob = () => {
   const { user } = useAuth();
@@ -25,7 +25,7 @@ const AddJob = () => {
     console.log(newJobData);
 
     // Add the data to database
-    fetch("http://localhost:5000/addJob", {
+    fetch("https://job-portal-server-ten-puce.vercel.app/addJob", {
       method: "POST",
       headers: {
         "content-type": "application/json",

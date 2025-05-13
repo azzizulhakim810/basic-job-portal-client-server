@@ -1,18 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../pages/Home/Home";
 import MainLayout from "../layout/MainLayout";
-import Register from "../pages/Register/Register";
-import SignIn from "../pages/SignIn/SignIn";
-import PrivateRoute from "./PrivateRoute";
-import Contact from "../pages/Contact/Contact";
 import About from "../pages/About/About";
-import Services from "../pages/Services/Services";
-import JobDetails from "../pages/JobDetails/JobDetails";
-import JobApply from "../pages/JobApply/JobApply";
-import MyApplications from "../pages/MyApplications/MyApplications";
 import AddJob from "../pages/AddJob/AddJob";
+import Contact from "../pages/Contact/Contact";
+import Home from "../pages/Home/Home";
+import JobApply from "../pages/JobApply/JobApply";
+import JobDetails from "../pages/JobDetails/JobDetails";
+import MyApplications from "../pages/MyApplications/MyApplications";
 import MyPostedJobs from "../pages/MyPostedJobs/MyPostedJobs";
+import Register from "../pages/Register/Register";
+import Services from "../pages/Services/Services";
+import SignIn from "../pages/SignIn/SignIn";
 import ViewApplicationsAdmin from "../pages/ViewApplications(Admin)/ViewApplicationsAdmin";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +32,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/jobs/${params.id}`),
+          fetch(
+            `https://job-portal-server-ten-puce.vercel.app/jobs/${params.id}`
+          ),
       },
       {
         path: "/myApplications",
@@ -74,7 +76,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/viewApplicationsAdmin/${params.job_id}`),
+          fetch(
+            `https://job-portal-server-ten-puce.vercel.app/viewApplicationsAdmin/${params.job_id}`
+          ),
       },
       {
         path: "/contact",

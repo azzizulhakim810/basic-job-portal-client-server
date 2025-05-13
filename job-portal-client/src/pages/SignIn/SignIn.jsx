@@ -1,12 +1,9 @@
 import Lottie from "lottie-react";
 import { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import signInAnimation from "../../assets/signin.json";
 import AuthContext from "../../context/AuthContext/AuthContext";
-import { signInWithPopup } from "firebase/auth";
 import SocialLogin from "../shared/SocialLogin";
-import { Navigate } from "react-router-dom";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 
 const SignIn = () => {
   const { signInUser } = useContext(AuthContext);
@@ -35,7 +32,7 @@ const SignIn = () => {
         navigate(location?.state ? location?.state : "/");
         // navigate(from, { replace: true });
 
-        /* fetch("http://localhost:5000/jwt", {
+        /* fetch("https://job-portal-server-ten-puce.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -48,7 +45,7 @@ const SignIn = () => {
         // Convert the above fetch into a easier version with axios
 
         /*  axios
-          .post("http://localhost:5000/jwt", user, { withCredentials: true })
+          .post("https://job-portal-server-ten-puce.vercel.app/jwt", user, { withCredentials: true })
           .then((res) => console.log(res.data))
           .catch((err) => console.log(err)); */
       })
