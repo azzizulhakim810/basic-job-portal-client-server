@@ -24,7 +24,7 @@ const Register = () => {
 
         // JWT Installation
         /*  axios
-          .post("https://job-portal-server-ten-puce.vercel.app/jwt", user, { withCredentials: true })
+          .post("http://localhost:5000/jwt", user, { withCredentials: true })
           .then((res) => console.log(res.data))
           .catch((err) => console.log(err)); */
       })

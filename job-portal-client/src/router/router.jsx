@@ -23,6 +23,7 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
+        loader: () => fetch("http://localhost:5000/jobsCount")
       },
       {
         path: "/jobs/:id",
@@ -32,9 +33,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://job-portal-server-ten-puce.vercel.app/jobs/${params.id}`
-          ),
+          fetch(`http://localhost:5000/jobs/${params.id}`),
       },
       {
         path: "/myApplications",
@@ -76,9 +75,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://job-portal-server-ten-puce.vercel.app/viewApplicationsAdmin/${params.job_id}`
-          ),
+          fetch(`http://localhost:5000/viewApplicationsAdmin/${params.job_id}`),
       },
       {
         path: "/contact",

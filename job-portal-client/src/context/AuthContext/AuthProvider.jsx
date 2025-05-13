@@ -68,7 +68,7 @@ const AuthProvider = ({ children }) => {
 
         // JWT Installation
         axios
-          .post("https://job-portal-server-ten-puce.vercel.app/jwt", user, {
+          .post("http://localhost:5000/jwt", user, {
             withCredentials: true,
           })
           .then((res) => {
@@ -80,7 +80,7 @@ const AuthProvider = ({ children }) => {
       } else {
         axios
           .post(
-            "https://job-portal-server-ten-puce.vercel.app/logout",
+            "http://localhost:5000/logout",
             {},
             {
               withCredentials: true,

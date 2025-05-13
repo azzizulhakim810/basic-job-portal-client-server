@@ -12,7 +12,7 @@ const MyApplications = () => {
   const axiosSecure = useAxiosSecure();
 
   const handleDelete = (_id) => {
-    /* fetch(`https://job-portal-server-ten-puce.vercel.app/myjobs/${_id}`, {
+    /* fetch(`http://localhost:5000/myjobs/${_id}`, {
       method: "DELETE",
     })
       .then((res) => res.json())
@@ -27,31 +27,29 @@ const MyApplications = () => {
         }
       }); */
 
-    axios
-      .delete(`https://job-portal-server-ten-puce.vercel.app/myjobs/${_id}`)
-      .then((res) => {
-        console.log(res.data);
+    axios.delete(`http://localhost:5000/myjobs/${_id}`).then((res) => {
+      console.log(res.data);
 
-        if (res.data.deletedCount) {
-          setAllApplication((prv) => prv.filter((app) => app._id !== _id));
-          Swal.fire({
-            title: "Done!",
-            text: "Deleted successfully!",
-            icon: "success",
-          });
-        }
-      });
+      if (res.data.deletedCount) {
+        setAllApplication((prv) => prv.filter((app) => app._id !== _id));
+        Swal.fire({
+          title: "Done!",
+          text: "Deleted successfully!",
+          icon: "success",
+        });
+      }
+    });
   };
 
   useEffect(() => {
-    /*     fetch(`https://job-portal-server-ten-puce.vercel.app/myjobs?email=${user?.email}`)
+    /*     fetch(`http://localhost:5000/myjobs?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => setAllApplication(data)); */
 
     ///////////// Convert it to axios
 
     /* axios
-      .get(`https://job-portal-server-ten-puce.vercel.app/myjobs?email=${user?.email}`, {
+      .get(`http://localhost:5000/myjobs?email=${user?.email}`, {
         withCredentials: true,
       })
       .then((res) => setAllApplication(res.data)); */

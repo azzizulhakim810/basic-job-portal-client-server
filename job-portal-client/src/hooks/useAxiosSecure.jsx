@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import useAuth from "./useAuth";
 
 const axiosInstance = axios.create({
-  baseURL: "https://job-portal-server-ten-puce.vercel.app",
+  baseURL: "http://localhost:5000",
   withCredentials: true,
 });
 

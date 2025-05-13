@@ -32,7 +32,7 @@ const SignIn = () => {
         navigate(location?.state ? location?.state : "/");
         // navigate(from, { replace: true });
 
-        /* fetch("https://job-portal-server-ten-puce.vercel.app/jwt", {
+        /* fetch("http://localhost:5000/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -45,7 +45,7 @@ const SignIn = () => {
         // Convert the above fetch into a easier version with axios
 
         /*  axios
-          .post("https://job-portal-server-ten-puce.vercel.app/jwt", user, { withCredentials: true })
+          .post("http://localhost:5000/jwt", user, { withCredentials: true })
           .then((res) => console.log(res.data))
           .catch((err) => console.log(err)); */
       })

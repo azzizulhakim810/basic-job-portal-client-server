@@ -25,7 +25,7 @@ const AddJob = () => {
     console.log(newJobData);
 
     // Add the data to database
-    fetch("https://job-portal-server-ten-puce.vercel.app/addJob", {
+    fetch("http://localhost:5000/addJob", {
       method: "POST",
       headers: {
         "content-type": "application/json",

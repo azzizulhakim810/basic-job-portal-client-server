@@ -14,12 +14,9 @@ const ViewApplicationsAdmin = () => {
   const handleDelete = async (application_id) => {
     // console.log(application_id);
 
-    fetch(
-      `https://job-portal-server-ten-puce.vercel.app/deleteApplication/${application_id}`,
-      {
-        method: "DELETE",
-      }
-    )
+    fetch(`http://localhost:5000/deleteApplication/${application_id}`, {
+      method: "DELETE",
+    })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -42,16 +39,13 @@ const ViewApplicationsAdmin = () => {
 
     console.log(data);
 
-    fetch(
-      `https://job-portal-server-ten-puce.vercel.app/job-application/${id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(data),
-      }
-    )
+    fetch(`http://localhost:5000/job-application/${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount) {
