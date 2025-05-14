@@ -9,7 +9,6 @@ const HotJobs = () => {
   const [jobsPerPage, setJobsPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(0);
 
-
   const handleJobsPerPage = (e) => {
     const value = parseInt(e.target.value);
     console.log(value);
@@ -53,16 +52,15 @@ const HotJobs = () => {
       <h1 className="text-3xl font-medium">HotJobs</h1>
       <p className="text-base ">See the jobs around you</p>
       <div className="w-10/12 mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 pt-5 pb-20">
-      
-      {/* Load all jobs  */}
+        {/* Load all jobs  */}
         {jobs.map((job) => (
           <HotJobCards key={job._id} job={job} />
         ))}
       </div>
 
-
       {/* Pagination Applied  */}
       <div className="join ">
+        <p>Current Page</p>
         {pages.map((page) => (
           <input
             className="join-item btn btn-square"
