@@ -50,7 +50,7 @@ const HotJobs = () => {
   return (
     <div className="text-center py-10">
       <h1 className="text-3xl font-medium">HotJobs</h1>
-      <p className="text-base ">See the jobs around you</p>
+      <p className="text-base ">See the available jobs</p>
       <div className="w-10/12 mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-5 pt-5 pb-20">
         {/* Load all jobs  */}
         {jobs.map((job) => (
