@@ -120,16 +120,28 @@ async function run() {
     // Get All Jobs (Everyone)
     app.get("/jobs", logger, async (req, res) => {
       console.log("Back in the Jobs");
+
+      console.log(req.query);
+
+      // Convert page & size to Int
+      const page = parseInt(req?.query?.page);
+      const size = parseInt(req?.query?.size);
+
       // My Posted Jobs Part
       const email = req.query.email;
       // console.log("Cookies", req.cookies);
+
+      // If there is an email then go to the second step, otherwise loads all
       let query = {};
       if (email) {
         query = { hr_email: email };
       }
 
       const cursor = jobsCollection.find(query);
-      const result = await cursor.toArray();
+      const result = await cursor
+        .skip(page * size)
+        .limit(size)
+        .toArray();
       res.send(result);
     });
 
