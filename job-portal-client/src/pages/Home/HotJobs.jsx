@@ -11,13 +11,14 @@ const HotJobs = () => {
 
   // const jobsPerPage = 3;
 
+  // Dynamic Class 
   const selectedPageBtnColor = {
     color: "white",
     backgroundColor: "red",
     marginLeft: "5px",
     marginRight: "5px",
   };
-
+ // Dynamic Class 
   const otherPageBtnColor = {
     color: "white",
     backgroundColor: "black",
