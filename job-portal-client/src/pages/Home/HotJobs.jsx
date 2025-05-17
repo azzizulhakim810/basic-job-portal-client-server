@@ -15,15 +15,15 @@ const HotJobs = () => {
   const selectedPageBtnColor = {
     color: "white",
     backgroundColor: "red",
-    marginLeft: "5px",
-    marginRight: "5px",
+    marginLeft: "6px",
+    marginRight: "6px",
   };
  // Dynamic Class 
   const otherPageBtnColor = {
     color: "white",
     backgroundColor: "black",
-    marginLeft: "5px",
-    marginRight: "5px",
+    marginLeft: "6px",
+    marginRight: "6px",
   };
 
   const numberOfPages = Math.ceil(count / jobsPerPage);
