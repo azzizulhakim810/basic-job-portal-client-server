@@ -121,23 +121,37 @@ async function run() {
     app.get("/jobs", logger, async (req, res) => {
       console.log("Back in the Jobs");
 
-      console.log(req.query);
+      // console.log(req.query.sort);
 
       // Convert page & size to Int
       const page = parseInt(req?.query?.page);
       const size = parseInt(req?.query?.size);
 
+      const sort = req.query?.sort;
+
+      console.log(req.query);
       // My Posted Jobs Part
-      const email = req.query.email;
+      const email = req.query?.email;
       // console.log("Cookies", req.cookies);
 
       // If there is an email then go to the second step, otherwise loads all
       let query = {};
+
+      let sortedQuery = {};
+
       if (email) {
         query = { hr_email: email };
       }
 
-      const cursor = jobsCollection.find(query);
+      if (sort == "true") {
+        sortedQuery = { "salaryRange.min": -1 };
+      }
+
+      // if (status == "true") {
+      //   statusQuery = { status: 1 };
+      // }
+
+      const cursor = jobsCollection.find(query).sort(sortedQuery);
       const result = await cursor
         .skip(page * size)
         .limit(size)

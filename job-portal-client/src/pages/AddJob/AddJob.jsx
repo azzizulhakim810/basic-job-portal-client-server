@@ -111,7 +111,7 @@ const AddJob = () => {
                 /> */}
                 <input
                   name="min"
-                  type="text"
+                  type="number"
                   className="input w-full"
                   placeholder="min"
                 />
@@ -128,7 +128,7 @@ const AddJob = () => {
                 /> */}
                 <input
                   name="max"
-                  type="text"
+                  type="number"
                   className="input w-full"
                   placeholder="max"
                 />
@@ -204,6 +204,7 @@ const AddJob = () => {
             {/* Hr Email */}
             <label className="label">HR Email</label>
             <input
+              readOnly
               defaultValue={user?.email}
               name="hr_email"
               type="email"

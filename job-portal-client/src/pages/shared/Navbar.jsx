@@ -23,6 +23,10 @@ const Navbar = () => {
       </li>
 
       <li>
+        <Link to="/allJobs">All Jobs</Link>
+      </li>
+
+      <li>
         <Link to="/addJob">Post a Job</Link>
       </li>
       <li>

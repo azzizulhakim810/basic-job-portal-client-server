@@ -13,6 +13,7 @@ import Services from "../pages/Services/Services";
 import SignIn from "../pages/SignIn/SignIn";
 import ViewApplicationsAdmin from "../pages/ViewApplications(Admin)/ViewApplicationsAdmin";
 import PrivateRoute from "./PrivateRoute";
+import AllJobs from "../pages/AllJobs/AllJobs";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,17 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => fetch("http://localhost:5000/jobsCount")
+        loader: () => fetch("http://localhost:5000/jobsCount"),
+      },
+      {
+        path: "/allJobs",
+        element: (
+          <PrivateRoute>
+            <AllJobs />
+          </PrivateRoute>
+        ),
+        // loader: ({ params }) =>
+        //   fetch(`http://localhost:5000/jobs/${params.id}`),
       },
       {
         path: "/jobs/:id",
