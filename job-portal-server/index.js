@@ -121,15 +121,18 @@ async function run() {
     app.get("/jobs", logger, async (req, res) => {
       console.log("Back in the Jobs");
 
-      // console.log(req.query.sort);
+      console.log(req.query);
 
       // Convert page & size to Int
       const page = parseInt(req?.query?.page);
       const size = parseInt(req?.query?.size);
+      const min = parseInt(req?.query?.min);
+      const max = parseInt(req?.query?.max);
 
       const sort = req.query?.sort;
+      const searchText = req.query?.searchText;
 
-      console.log(req.query);
+      console.log(req.query?.searchText);
       // My Posted Jobs Part
       const email = req.query?.email;
       // console.log("Cookies", req.cookies);
@@ -146,6 +149,23 @@ async function run() {
       if (sort == "true") {
         sortedQuery = { "salaryRange.min": -1 };
       }
+
+      if (searchText) {
+        query.title = {
+          $regex: searchText,
+          $options: "i",
+        };
+      }
+
+      if (min && max) {
+        query = {
+          ...query,
+          "salaryRange.min": { $gte: min },
+          "salaryRange.max": { $lte: max },
+        };
+      }
+
+      console.log(query);
 
       // if (status == "true") {
       //   statusQuery = { status: 1 };
