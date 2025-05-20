@@ -11,14 +11,14 @@ const HotJobs = () => {
 
   // const jobsPerPage = 3;
 
-  // Dynamic Class 
+  // Dynamic Class
   const selectedPageBtnColor = {
     color: "white",
     backgroundColor: "red",
     marginLeft: "6px",
     marginRight: "6px",
   };
- // Dynamic Class 
+  // Dynamic Class
   const otherPageBtnColor = {
     color: "white",
     backgroundColor: "black",
@@ -41,7 +41,7 @@ const HotJobs = () => {
   console.log(pages);
 
   useEffect(() => {
-    /* fetch("http://localhost:5000/jobs", {
+    /* fetch("https://job-portal-server-ten-puce.vercel.app/jobs", {
       withCredentials: true,
     })
       .then((res) => res.json())
@@ -52,7 +52,7 @@ const HotJobs = () => {
 
     axios
       .get(
-        `http://localhost:5000/jobs?page=${currentPage}&size=${jobsPerPage}}`,
+        `https://job-portal-server-ten-puce.vercel.app/jobs?page=${currentPage}&size=${jobsPerPage}}`,
         {
           withCredentials: true,
         }

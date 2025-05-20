@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
 
 const useJobs = (sort, searchText, min, max) => {
   const [jobs, setJobs] = useState([]);
@@ -10,7 +10,7 @@ const useJobs = (sort, searchText, min, max) => {
   useEffect(() => {
     axios
       .get(
-        `http://localhost:5000/jobs?sort=${sort}&searchText=${searchText}&min=${min}&max=${max}`
+        `https://job-portal-server-ten-puce.vercel.app/jobs?sort=${sort}&searchText=${searchText}&min=${min}&max=${max}`
       )
       .then((res) => {
         setLoading(false);

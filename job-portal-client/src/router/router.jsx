@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import About from "../pages/About/About";
 import AddJob from "../pages/AddJob/AddJob";
+import AllJobs from "../pages/AllJobs/AllJobs";
 import Contact from "../pages/Contact/Contact";
 import Home from "../pages/Home/Home";
 import JobApply from "../pages/JobApply/JobApply";
@@ -13,7 +14,6 @@ import Services from "../pages/Services/Services";
 import SignIn from "../pages/SignIn/SignIn";
 import ViewApplicationsAdmin from "../pages/ViewApplications(Admin)/ViewApplicationsAdmin";
 import PrivateRoute from "./PrivateRoute";
-import AllJobs from "../pages/AllJobs/AllJobs";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +24,8 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home />,
-        loader: () => fetch("http://localhost:5000/jobsCount"),
+        loader: () =>
+          fetch("https://job-portal-server-ten-puce.vercel.app/jobsCount"),
       },
       {
         path: "/allJobs",
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         // loader: ({ params }) =>
-        //   fetch(`http://localhost:5000/jobs/${params.id}`),
+        //   fetch(`https://job-portal-server-ten-puce.vercel.app/jobs/${params.id}`),
       },
       {
         path: "/jobs/:id",
@@ -44,7 +45,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/jobs/${params.id}`),
+          fetch(
+            `https://job-portal-server-ten-puce.vercel.app/jobs/${params.id}`
+          ),
       },
       {
         path: "/myApplications",
@@ -86,7 +89,9 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/viewApplicationsAdmin/${params.job_id}`),
+          fetch(
+            `https://job-portal-server-ten-puce.vercel.app/viewApplicationsAdmin/${params.job_id}`
+          ),
       },
       {
         path: "/contact",
